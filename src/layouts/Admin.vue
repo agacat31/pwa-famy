@@ -16,10 +16,10 @@
 <script>
   import store from '@/store'
   import { mapGetters } from 'vuex'
-  import Navbar from '../components/base/navigation.vue'
-  import Sidebar from '../components/base/sidebar.vue'
-  import SidebarRight from '../components/base/sidebarRight.vue'
-  // import FloatSidebar from './floatSidebar.vue'
+  import Navbar from './parts/navigation.vue'
+  import Sidebar from './parts/sidebar.vue'
+  import SidebarRight from './parts/sidebarRight.vue'
+  // import FloatSidebar from './parts/floatSidebar.vue'
   export default {
     components: {
       'navbarTemplate': Navbar,
