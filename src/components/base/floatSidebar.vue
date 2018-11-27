@@ -72,18 +72,8 @@
   export default {
     data: () => ({
       items: [
+        { icon: 'home', text: 'Home', pathName: 'home' },
         { icon: 'contacts', text: 'Users', pathName: 'user' },
-        { icon: 'history', text: 'Frequently contacted', pathName: 'home' },
-        { icon: 'content_copy', text: 'Duplicates', pathName: 'home' },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'Labels',
-          model: false,
-          children: [
-            { icon: 'add', text: 'Create label', pathName: 'home' }
-          ]
-        },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
@@ -97,10 +87,6 @@
             { text: 'Other contacts', pathName: 'home' }
           ]
         },
-        { icon: 'settings', text: 'Settings', pathName: 'home' },
-        { icon: 'chat_bubble', text: 'Send feedback', pathName: 'home' },
-        { icon: 'help', text: 'Help', pathName: 'home' },
-        { icon: 'phonelink', text: 'App downloads', pathName: 'home' },
         { icon: 'lock', text: 'Logout', pathName: 'logout' }
       ]
     }),
@@ -113,10 +99,8 @@
     methods: {
       goTo (path) {
         if (path === 'logout') {
-          this.$session.destroy()
           window.localStorage.clear()
-          store.dispatch('setAuth', false)
-          this.$router.push('/login')
+          location.reload()
         } else {
           this.$router.push({ name: path })
         }

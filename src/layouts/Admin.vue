@@ -3,7 +3,7 @@
     <sidebarTemplate></sidebartemplate>
     <sidebarRightTemplate></sidebarRightTemplate>
     <navbarTemplate></navbartemplate>
-    <!-- <floatSidebarTemplate v-if='auth'></floatSidebarTemplate> -->
+    <!-- <floatSidebarTemplate></floatSidebarTemplate> -->
     <v-content>
 	    <v-container fluid>
             <transition name="fade" mode="out-in" :duration="{ enter: 100, leave: 50 }">
@@ -31,7 +31,7 @@
       
     },
     computed: mapGetters({
-      auth: 'auth'
+      // auth: 'auth'
     })
   }
 </script>

@@ -2,14 +2,12 @@ import defaultPhoto from '../../assets/images/kaneki_ken.png'
 var storage = window.localStorage
 
 const state = {
-  profile: {
-    name: 'Aga Atmaja',
-    photo: defaultPhoto,
-    phone: '081213551169',
-    email: 'aga@gmail.com',
-    company: 'agacat',
-    position: 'Developer'
-  }
+  name: 'Aga Atmaja',
+  photo: defaultPhoto,
+  phone: '081213551169',
+  email: 'aga@gmail.com',
+  company: 'agacat',
+  position: 'Developer'
 }
 
 const getters = {

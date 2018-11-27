@@ -16,7 +16,7 @@
       }
     },
     beforeCreate () {
-      console.log(this.layout)
+      // console.log(this.layout)
     },
     mounted() {
       

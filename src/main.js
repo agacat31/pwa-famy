@@ -26,6 +26,51 @@ Vue.component('fullscreen-layout', Fullscreen)
 
 Vue.config.productionTip = false
 
+// router.beforeEach((to, from, next) => {
+//   if (
+//     to.matched.some((record) => record.meta.requiresAuth) &&
+//     (!store.getters.getToken && store.getters.getToken === 'null' || store.getters.getToken === null)
+//   ) {
+//     // document.title = 'Login · HRMLabs 2.0';
+//     next({
+//       path: '/login',
+//       query: { redirect: to.fullPath },
+//     });
+//   }
+//   else if(!to.matched.some((record) => record.meta.requiresAuth) && store.getters.getToken === null && to.name === 'NotFound') {
+//     // document.title = 'Login · HRMLabs 2.0';
+//     next({
+//       path: '/login',
+//       query: { redirect: to.fullPath },
+//     });
+//   }
+// })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.getters.getToken) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else if (!to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.getToken) {
+      next({
+        path: '/',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // make sure to always call next()!
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

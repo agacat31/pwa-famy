@@ -12,18 +12,19 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      meta: { layout: 'admin' },
+      meta: { layout: 'admin', requiresAuth: true },
       component: HelloWorld,
     },
     {
       path: '/login',
       name: 'login',
+      meta: { requiresAuth: false },
       component: Login
     },
     {
       path: '/user',
       name: 'user',
-      meta: { layout: 'admin' },
+      meta: { layout: 'admin', requiresAuth: true },
       component: Users
     }
   ]

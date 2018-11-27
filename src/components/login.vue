@@ -75,7 +75,6 @@
         if (this.$refs.form.validate()) {
           login(this.credentials)
             .then((response) => {
-              store.dispatch('setAuth', true)
               store.dispatch('setToken', response.data.token)
 
               var profile = {
