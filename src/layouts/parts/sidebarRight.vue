@@ -100,7 +100,7 @@
     methods: {
       goTo (path) {
         if (path === 'logout') {
-          window.localStorage.clear()
+          window.$cookies.remove("ses")
           location.reload()
         } else {
           this.$router.push({ name: path })

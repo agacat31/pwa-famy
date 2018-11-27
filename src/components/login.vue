@@ -75,11 +75,14 @@
         if (this.$refs.form.validate()) {
           login(this.credentials)
             .then((response) => {
-              store.dispatch('setToken', response.data.token)
+              var auth = {
+                token: response.data.token,
+                expires: "10s"
+              }
+              store.dispatch('setAuth', auth)
 
               var profile = {
                 name: 'Aga Atmaja',
-                photo: 'https://hrmlabsv2.s3.ap-southeast-1.amazonaws.com/internal/images/employees/5ae289d216472f28851b6eb2.png?8905',
                 phone: '081213551169',
                 email: 'aga@gmail.com',
                 company: 'agacat',
