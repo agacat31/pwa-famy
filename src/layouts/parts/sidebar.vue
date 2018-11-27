@@ -91,7 +91,7 @@
       ]
     }),
     computed: mapGetters({
-      drawer: 'drawer'
+      drawer: 'template/drawer'
     }),
     props: {
       source: String

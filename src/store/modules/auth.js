@@ -2,7 +2,7 @@ import axios from 'axios'
 var storage = window.localStorage
 
 const state = {
-  token: (storage.getItem('token') == null) ? false : JSON.parse(storage.getItem('token')),
+  token: false,
 }
 
 const getters = {
@@ -14,7 +14,6 @@ const getters = {
 const mutations = {
   SET_AUTH (state, auth) {
     state.token = true
-    storage.setItem('token', true)
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token
     window.$cookies.set("ses", auth.token, auth.expires);
   }
@@ -27,6 +26,7 @@ const actions = {
 }
 
 export var auth = {
+  namespaced: true,
   state,
   getters,
   mutations,

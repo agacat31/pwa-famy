@@ -91,7 +91,7 @@
       ]
     }),
     computed: mapGetters({
-      floatDrawer: 'floatDrawer'
+      floatDrawer: 'template/floatDrawer'
     }),
     props: {
       source: String

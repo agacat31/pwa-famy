@@ -48,7 +48,7 @@
   </v-container>
 </template>
 <script>
-  import store from '@/store'
+  import { mapActions, mapGetters } from 'vuex'
   import { login } from '../store/utils/api'
   export default {
     data: () => ({
@@ -68,6 +68,10 @@
       valid: false
     }),
     methods: {
+      ...mapActions({
+        setAuth: 'auth/setAuth',
+        setProfile: 'user/setProfile',
+      }),
       goTo (path) {
         this.$router.push({ name: path })
       },
@@ -77,9 +81,9 @@
             .then((response) => {
               var auth = {
                 token: response.data.token,
-                expires: "10s"
+                expires: "10min"
               }
-              store.dispatch('setAuth', auth)
+              this.setAuth(auth)
 
               var profile = {
                 name: 'Aga Atmaja',
@@ -88,7 +92,7 @@
                 company: 'agacat',
                 position: 'Developer'
               }
-              store.dispatch('setProfile', profile)
+              this.setProfile(profile)
               this.goTo('home')
             })
             .catch((error) => {

@@ -1,64 +1,59 @@
 var storage = window.localStorage
 
 const state = {
-  template: {
-    drawer: (storage.getItem('drawer') == null) ? true : JSON.parse(storage.getItem('drawer')),
-    drawerRight: (storage.getItem('drawerRight') == null) ? false : JSON.parse(storage.getItem('drawerRight')),
-    floatDrawer: (storage.getItem('floatDrawer') == null) ? false : JSON.parse(storage.getItem('floatDrawer')),
-    layout: (storage.getItem('layout') == null) ? 'admin' : storage.getItem('layout')
-  }
+  drawer: true,
+  drawerRight: false,
+  floatDrawer: false,
+  layout: 'admin'
 }
 
 const getters = {
   drawer (state) {
-    return state.template.drawer
+    return state.drawer
   },
   drawerRight (state) {
-    return state.template.drawerRight
+    return state.drawerRight
   },
   floatDrawer (state) {
-    return state.template.floatDrawer
+    return state.floatDrawer
   },
-  setLayout (state) {
-    return state.template.layout
+  layout (state) {
+    return state.layout
   }
 }
 
 const mutations = {
-  setDrawer (state, drawer) {
-    state.template.drawer = drawer
-    storage.setItem('drawer', state.template.drawer)
+  SET_DRAWER (state, drawer) {
+    state.drawer = drawer
   },
-  setDrawerRight (state, drawerRight) {
-    state.template.drawerRight = drawerRight
-    storage.setItem('drawerRight', state.template.drawerRight)
+  SET_DRAWER_RIGHT (state, drawerRight) {
+    state.drawerRight = drawerRight
   },
-  setFloatDrawer (state, floatDrawer) {
-    state.template.floatDrawer = floatDrawer
-    storage.setItem('floatDrawer', state.template.floatDrawer)
+  SET_FLOAT_DRAWER (state, floatDrawer) {
+    state.floatDrawer = floatDrawer
   },
-  setLayout (state, layout) {
-    state.template.layout = layout
-    storage.setItem('setLayout', state.template.layout)
+  SET_LAYOUT (state, layout) {
+    state.layout = layout
   }
 }
 
 const actions = {
   setDrawer ({ commit }, drawer) {
-    commit('setDrawer', drawer)
+    commit('SET_DRAWER', drawer)
   },
   setDrawerRight ({ commit }, drawerRight) {
-    commit('setDrawerRight', drawerRight)
+    commit('SET_DRAWER_RIGHT', drawerRight)
   },
   setFloatDrawer ({ commit }, floatDrawer) {
-    commit('setFloatDrawer', floatDrawer)
+    commit('SET_FLOAT_DRAWER', floatDrawer)
   },
   setLayout ({ commit }, layout) {
-    commit('setLayout', layout)
+    commit('SET_LAYOUT', layout)
   }
 }
 
 export var template = {
+  namespaced: true,
   state,
   getters,
   mutations,

@@ -38,6 +38,7 @@
 
 <script>
   import store from '@/store'
+  import { mapActions, mapGetters } from 'vuex'
   export default {
     data: () => ({
       drawer: store.getters.drawer,
@@ -49,16 +50,21 @@
     },
     watch: {
       drawer (val) {
-        store.dispatch('setDrawer', this.drawer)
+        this.setDrawer(this.drawer)
       },
       drawerRight (val) {
-        store.dispatch('setDrawerRight', this.drawerRight)
+        this.setDrawerRight(this.drawerRight)
       },
       floatDrawer (val) {
-        store.dispatch('setFloatDrawer', this.floatDrawer)
+        this.setFloatDrawer(this.floatDrawer)
       }
     },
     methods: {
+      ...mapActions({
+        setDrawer: 'template/setDrawer',
+        setDrawerRight: 'template/setDrawerRight',
+        setFloatDrawer: 'template/setFloatDrawer'
+      }),
       goTo (path) {
         this.$router.push({ name: path })
       }
