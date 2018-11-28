@@ -1,5 +1,4 @@
 import defaultPhoto from '../../assets/images/kaneki_ken.png'
-var storage = window.localStorage
 
 const state = {
   profile: {
@@ -7,8 +6,6 @@ const state = {
     photo: defaultPhoto,
     phone: '',
     email: '',
-    company: '',
-    position: ''
   }
 }
 

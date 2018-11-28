@@ -78,12 +78,13 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="tableItems"
       v-model="selected"
-      item-key="name"
+      item-key="email"
       select-all
       :pagination.sync="pagination"
-      :total-items="totalDesserts"
+      :rows-per-page-items="rowsPerPage"
+      :total-items="totalItems"
       :loading="loading"
       class="elevation-1"
     >
@@ -105,12 +106,11 @@
             hide-details
           ></v-checkbox>
         </td>
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
-        <td class="text-xs-right">{{ props.item.iron }}</td>
+        <td>{{ props.item.firstname }} {{ props.item.lastname }}</td>
+        <td class="text-xs-right">{{ props.item.email }}</td>
+        <td class="text-xs-right">{{ props.item.phone }}</td>
+        <td class="text-xs-right">{{ props.item.city }}</td>
+        <td class="text-xs-right">{{ props.item.address.city }}</td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
@@ -125,7 +125,7 @@
 </template>
 
 <script>
-  // import store from '@/store'
+  import { getUsers } from '../store/utils/api'
   export default {
     data () {
       return {
@@ -147,25 +147,22 @@
         // Datatables
         search: '',
         dialog: false,
-        totalDesserts: 0,
+        totalItems: 0,
         selected: [],
-        desserts: [],
+        tableItems: [],
         loading: true,
         pagination: {},
+        rowsPerPage: [5, 10, 25, 50, 100],
         headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'left',
-            sortable: false,
-            value: 'name'
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
+          { text: 'Name', align: 'left', value: 'firstname' },
+          { text: 'Email', value: 'email' },
+          { text: 'Phone', value: 'phone' },
+          { text: 'City', value: 'city' },
+          { text: 'Address', value: 'address.city', sortable: false },
           { text: 'Actions', value: 'name', sortable: false }
         ],
+        // Datatables
+
         editedIndex: -1,
         editedItem: {
           name: '',
@@ -200,8 +197,8 @@
         handler () {
           this.getDataFromApi()
             .then(data => {
-              this.desserts = data.items
-              this.totalDesserts = data.total
+              this.tableItems = data.items
+              this.totalItems = data.total
             })
         },
         deep: true
@@ -216,42 +213,31 @@
       }
     },
     mounted () {
-      this.getDataFromApi()
-        .then(data => {
-          this.desserts = data.items
-          this.totalDesserts = data.total
-        })
+      // this.getDataFromApi()
+      //   .then(data => {
+      //     this.tableItems = data.items
+      //     this.totalItems = data.total
+      //   })
     },
     methods: {
       getDataFromApi () {
         this.loading = true
         return new Promise((resolve, reject) => {
           const { sortBy, descending, page, rowsPerPage } = this.pagination
-          // console.log(this.pagination)
-
-          let items = this.getDesserts()
-          const total = items.length
-
-          if (this.pagination.sortBy) {
-            items = items.sort((a, b) => {
-              const sortA = a[sortBy]
-              const sortB = b[sortBy]
-
-              if (descending) {
-                if (sortA < sortB) return 1
-                if (sortA > sortB) return -1
-                return 0
-              } else {
-                if (sortA < sortB) return -1
-                if (sortA > sortB) return 1
-                return 0
-              }
-            })
+          console.log(this.pagination)
+          var paginate = {
+            page: this.pagination.page,
+            limit: this.pagination.rowsPerPage,
+            sort: this.pagination.sortBy,
+            order: this.pagination.descending ? 'desc' : 'asc',
+            filter: this.search
           }
 
-          if (rowsPerPage > 0) {
-            items = items.slice((page - 1) * rowsPerPage, page * rowsPerPage)
-          }
+          let items
+          const total = 200
+          getUsers(paginate).then((response) => {
+            items = response.data
+          })
 
           setTimeout(() => {
             this.loading = false
@@ -263,15 +249,15 @@
         })
       },
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.tableItems.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
         console.log(this.editedItem)
       },
 
       deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+        const index = this.tableItems.indexOf(item)
+        confirm('Are you sure you want to delete this item?') && this.tableItems.splice(index, 1)
       },
 
       close () {
@@ -289,116 +275,12 @@
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
           if (this.editedIndex > -1) {
-            Object.assign(this.desserts[this.editedIndex], data)
+            Object.assign(this.tableItems[this.editedIndex], data)
           } else {
-            this.desserts.push(data)
+            this.tableItems.push(data)
           }
           this.close()
         }
-      },
-      getDesserts () {
-        return [
-          {
-            id: 1,
-            value: false,
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%'
-          },
-          {
-            id: 2,
-            value: false,
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%'
-          },
-          {
-            id: 3,
-            value: false,
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%'
-          },
-          {
-            id: 4,
-            value: false,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%'
-          },
-          {
-            id: 5,
-            value: false,
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%'
-          },
-          {
-            id: 6,
-            value: false,
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%'
-          },
-          {
-            id: 7,
-            value: false,
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%'
-          },
-          {
-            id: 8,
-            value: false,
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%'
-          },
-          {
-            id: 9,
-            value: false,
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%'
-          },
-          {
-            id: 10,
-            value: false,
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%'
-          }
-        ]
       }
     }
   }

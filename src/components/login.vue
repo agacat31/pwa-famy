@@ -81,7 +81,7 @@
             .then((response) => {
               var auth = {
                 token: response.data.token,
-                expires: "10min"
+                expires: "10m"
               }
               this.setAuth(auth)
 

@@ -1,5 +1,3 @@
-var storage = window.localStorage
-
 const state = {
   drawer: true,
   drawerRight: false,

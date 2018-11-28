@@ -1,5 +1,4 @@
 import axios from 'axios'
-var storage = window.localStorage
 
 const state = {
   token: false,
