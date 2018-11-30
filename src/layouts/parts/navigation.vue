@@ -50,14 +50,17 @@
     },
     watch: {
       drawer (val) {
-        this.setDrawer(this.drawer)
+        this.setDrawer(val)
       },
       drawerRight (val) {
-        this.setDrawerRight(this.drawerRight)
+        this.setDrawerRight(val)
       },
       floatDrawer (val) {
-        this.setFloatDrawer(this.floatDrawer)
+        this.setFloatDrawer(val)
       }
+    },
+    mounted() {
+      console.log(this.drawer)
     },
     methods: {
       ...mapActions({

@@ -65,9 +65,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-card-title>
-      Nutrition
-      <v-spacer></v-spacer>
+    <v-card-title class="pl-0 pr-0">
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -75,12 +73,15 @@
         single-line
         hide-details
       ></v-text-field>
+      <v-spacer></v-spacer>
+      <v-btn color="error" dark class="mb-2">Pdf</v-btn>
+      <v-btn color="success" dark class="mb-2">Xls</v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
       :items="tableItems"
       v-model="selected"
-      item-key="email"
+      item-key="id"
       select-all
       :pagination.sync="pagination"
       :rows-per-page-items="rowsPerPage"
