@@ -41,9 +41,9 @@
   import { mapActions, mapGetters } from 'vuex'
   export default {
     data: () => ({
-      drawer: store.getters.drawer,
-      drawerRight: store.getters.drawerRight,
-      floatDrawer: store.getters.floatDrawer
+      drawer: store.getters['template/drawer'],
+      drawerRight: store.getters['template/drawerRight'],
+      floatDrawer: store.getters['template/floatDrawer']
     }),
     props: {
       source: String
@@ -58,9 +58,6 @@
       floatDrawer (val) {
         this.setFloatDrawer(val)
       }
-    },
-    mounted() {
-      console.log(this.drawer)
     },
     methods: {
       ...mapActions({
