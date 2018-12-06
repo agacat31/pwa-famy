@@ -77,27 +77,44 @@
       },
       login () {
         if (this.$refs.form.validate()) {
-          login(this.credentials)
-            .then((response) => {
-              var auth = {
-                token: response.data.token,
-                expires: "10m"
-              }
-              this.setAuth(auth)
+          // login(this.credentials)
+          //   .then((response) => {
+          //     var auth = {
+          //       token: response.data.token,
+          //       expires: "10m"
+          //     }
+          //     this.setAuth(auth)
 
-              var profile = {
-                name: 'Aga Atmaja',
-                phone: '081213551169',
-                email: 'aga@gmail.com',
-                company: 'agacat',
-                position: 'Developer'
-              }
-              this.setProfile(profile)
-              this.goTo('home')
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+          //     var profile = {
+          //       name: 'Aga Atmaja',
+          //       phone: '081213551169',
+          //       email: 'aga@gmail.com',
+          //       company: 'agacat',
+          //       position: 'Developer'
+          //     }
+          //     this.setProfile(profile)
+          //     this.goTo('home')
+          //   })
+          //   .catch((error) => {
+          //     console.log(error)
+          //   })
+
+          var auth = {
+            token: "khyskid78os7tj8f979d87h9j7987",
+            expires: "10m"
+          }
+          this.setAuth(auth)
+
+          var profile = {
+            name: 'Aga Atmaja',
+            phone: '081213551169',
+            email: 'aga@gmail.com',
+            company: 'agacat',
+            position: 'Developer'
+          }
+          this.setProfile(profile)
+          this.goTo('home')
+          
         }
       }
     }
