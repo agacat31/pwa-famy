@@ -4,6 +4,7 @@
     dark
     app
     fixed
+    :clipped-right="$vuetify.breakpoint.mdAndUp"
     :clipped-left="clipped"
   > <!-- :clipped-left="$vuetify.breakpoint.mdAndUp" :clipped-right="$vuetify.breakpoint.mdAndUp" -->
     <v-toolbar-title style="width: 300px" class="ml-0">
