@@ -1,9 +1,9 @@
 const state = {
   drawer: true,
   drawerRight: false,
-  floatDrawer: false,
   clipped: true,
-  miniVariant: false
+  miniVariant: false,
+  floatDrawer: false
 }
 
 const getters = {
@@ -13,14 +13,14 @@ const getters = {
   drawerRight (state) {
     return state.drawerRight
   },
-  floatDrawer (state) {
-    return state.floatDrawer
+  clipped (state) {
+    return state.clipped
   },
   miniVariant (state) {
     return state.miniVariant
   },
-  clipped (state) {
-    return state.clipped
+  floatDrawer (state) {
+    return state.floatDrawer
   }
 }
 
@@ -31,14 +31,14 @@ const mutations = {
   SET_DRAWER_RIGHT (state, drawerRight) {
     state.drawerRight = drawerRight
   },
-  SET_FLOAT_DRAWER (state, floatDrawer) {
-    state.floatDrawer = floatDrawer
+  SET_CLIPPED (state, clipped) {
+    state.clipped = clipped
   },
   SET_MINI_VARIANT (state, miniVariant) {
     state.miniVariant = miniVariant
   },
-  SET_CLIPPED (state, clipped) {
-    state.clipped = clipped
+  SET_FLOAT_DRAWER (state, floatDrawer) {
+    state.floatDrawer = floatDrawer
   },
 }
 
@@ -49,14 +49,14 @@ const actions = {
   setDrawerRight ({ commit }, drawerRight) {
     commit('SET_DRAWER_RIGHT', drawerRight)
   },
-  setFloatDrawer ({ commit }, floatDrawer) {
-    commit('SET_FLOAT_DRAWER', floatDrawer)
+  setClipped ({ commit }, clipped) {
+    commit('SET_CLIPPED', clipped)
   },
   setMiniVariant ({ commit }, miniVariant) {
     commit('SET_MINI_VARIANT', miniVariant)
   },
-  setClipped ({ commit }, clipped) {
-    commit('SET_CLIPPED', clipped)
+  setFloatDrawer ({ commit }, floatDrawer) {
+    commit('SET_FLOAT_DRAWER', floatDrawer)
   },
 }
 

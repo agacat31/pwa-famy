@@ -3,7 +3,7 @@
       :value="drawerRight"
       fixed
       right
-      clipped
+      :clipped="clipped"
       app
     >
       <v-list dense>
@@ -92,7 +92,8 @@
       ]
     }),
     computed: mapGetters({
-      drawerRight: 'template/drawerRight'
+      drawerRight: 'template/drawerRight',
+      clipped: 'template/clipped'
     }),
     props: {
       source: String

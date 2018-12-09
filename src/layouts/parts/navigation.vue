@@ -4,7 +4,7 @@
     dark
     app
     fixed
-    :clipped-right="$vuetify.breakpoint.mdAndUp"
+    :clipped-right="clipped"
     :clipped-left="clipped"
   > <!-- :clipped-left="$vuetify.breakpoint.mdAndUp" :clipped-right="$vuetify.breakpoint.mdAndUp" -->
     <v-toolbar-title style="width: 300px" class="ml-0">
@@ -55,9 +55,9 @@
     data: () => ({
       drawer: store.getters['template/drawer'],
       drawerRight: store.getters['template/drawerRight'],
-      floatDrawer: store.getters['template/floatDrawer'],
       clipped: store.getters['template/clipped'],
-      miniVariant: store.getters['template/miniVariant']
+      miniVariant: store.getters['template/miniVariant'],
+      floatDrawer: store.getters['template/floatDrawer'],
     }),
     props: {
       source: String
@@ -69,23 +69,26 @@
       drawerRight (val) {
         this.setDrawerRight(val)
       },
-      floatDrawer (val) {
-        this.setFloatDrawer(val)
+      clipped (val) {
+        this.setClipped(val)
       },
       miniVariant (val) {
         this.setMiniVariant(val)
       },
-      clipped (val) {
-        this.setClipped(val)
+      floatDrawer (val) {
+        this.setFloatDrawer(val)
       }
+    },
+    mounted() {
+      console.log(this.$vuetify.breakpoint.smAndDown)
     },
     methods: {
       ...mapActions({
         setDrawer: 'template/setDrawer',
         setDrawerRight: 'template/setDrawerRight',
-        setFloatDrawer: 'template/setFloatDrawer',
+        setClipped: 'template/setClipped',
         setMiniVariant: 'template/setMiniVariant',
-        setClipped: 'template/setClipped'
+        setFloatDrawer: 'template/setFloatDrawer'
       }),
       goTo (path) {
         this.$router.push({ name: path })
