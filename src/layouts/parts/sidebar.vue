@@ -1,10 +1,11 @@
 <template>
   <v-navigation-drawer
     fixed
-    :clipped="$vuetify.breakpoint.mdAndUp"
     app
+    :mini-variant.sync="miniVariant"
+    :clipped="clipped"
     :value="drawer"
-  >
+  > <!-- :clipped="$vuetify.breakpoint.mdAndUp" -->
     <v-list dense>
       <template v-for="item in items">
         <v-layout
@@ -80,18 +81,20 @@
           text: 'More',
           model: false,
           children: [
-            { text: 'Import', pathName: 'home' },
-            { text: 'Export', pathName: 'home' },
-            { text: 'Print', pathName: 'home' },
-            { text: 'Undo changes', pathName: 'home' },
-            { text: 'Other contacts', pathName: 'home' }
+            { text: 'Import', icon: 'apps', pathName: 'home' },
+            { text: 'Export', icon: 'bubble_chart',  pathName: 'home' },
+            { text: 'Print', icon: 'apps',  pathName: 'home' },
+            { text: 'Undo changes', icon: 'bubble_chart',  pathName: 'home' },
+            { text: 'Other contacts', icon: 'apps',  pathName: 'home' }
           ]
         },
         { icon: 'lock', text: 'Logout', pathName: 'logout' }
       ]
     }),
     computed: mapGetters({
-      drawer: 'template/drawer'
+      drawer: 'template/drawer',
+      miniVariant: 'template/miniVariant',
+      clipped: 'template/clipped'
     }),
     props: {
       source: String

@@ -2,7 +2,8 @@ const state = {
   drawer: true,
   drawerRight: false,
   floatDrawer: false,
-  layout: 'admin'
+  clipped: true,
+  miniVariant: false
 }
 
 const getters = {
@@ -15,8 +16,11 @@ const getters = {
   floatDrawer (state) {
     return state.floatDrawer
   },
-  layout (state) {
-    return state.layout
+  miniVariant (state) {
+    return state.miniVariant
+  },
+  clipped (state) {
+    return state.clipped
   }
 }
 
@@ -30,9 +34,12 @@ const mutations = {
   SET_FLOAT_DRAWER (state, floatDrawer) {
     state.floatDrawer = floatDrawer
   },
-  SET_LAYOUT (state, layout) {
-    state.layout = layout
-  }
+  SET_MINI_VARIANT (state, miniVariant) {
+    state.miniVariant = miniVariant
+  },
+  SET_CLIPPED (state, clipped) {
+    state.clipped = clipped
+  },
 }
 
 const actions = {
@@ -45,9 +52,12 @@ const actions = {
   setFloatDrawer ({ commit }, floatDrawer) {
     commit('SET_FLOAT_DRAWER', floatDrawer)
   },
-  setLayout ({ commit }, layout) {
-    commit('SET_LAYOUT', layout)
-  }
+  setMiniVariant ({ commit }, miniVariant) {
+    commit('SET_MINI_VARIANT', miniVariant)
+  },
+  setClipped ({ commit }, clipped) {
+    commit('SET_CLIPPED', clipped)
+  },
 }
 
 export var template = {
