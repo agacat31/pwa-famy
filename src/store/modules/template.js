@@ -2,8 +2,7 @@ const state = {
   drawer: true,
   drawerRight: false,
   clipped: true,
-  miniVariant: false,
-  floatDrawer: false
+  miniVariant: false
 }
 
 const getters = {
@@ -18,9 +17,6 @@ const getters = {
   },
   miniVariant (state) {
     return state.miniVariant
-  },
-  floatDrawer (state) {
-    return state.floatDrawer
   }
 }
 
@@ -36,10 +32,7 @@ const mutations = {
   },
   SET_MINI_VARIANT (state, miniVariant) {
     state.miniVariant = miniVariant
-  },
-  SET_FLOAT_DRAWER (state, floatDrawer) {
-    state.floatDrawer = floatDrawer
-  },
+  }
 }
 
 const actions = {
@@ -54,10 +47,7 @@ const actions = {
   },
   setMiniVariant ({ commit }, miniVariant) {
     commit('SET_MINI_VARIANT', miniVariant)
-  },
-  setFloatDrawer ({ commit }, floatDrawer) {
-    commit('SET_FLOAT_DRAWER', floatDrawer)
-  },
+  }
 }
 
 export var template = {
