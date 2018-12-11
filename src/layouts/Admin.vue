@@ -14,7 +14,6 @@
 </template>
 <script>
   import store from '@/store'
-  import { mapGetters } from 'vuex'
   import Navbar from './parts/navigation.vue'
   import Sidebar from './parts/sidebar.vue'
   import SidebarRight from './parts/sidebarRight.vue'
@@ -25,10 +24,10 @@
       'sidebarRightTemplate': SidebarRight,
     },
     beforeCreate () {
-      
-    },
-    computed: mapGetters({
-      // auth: 'auth'
-    })
+      if (this.$vuetify.breakpoint.smAndDown) {
+        store.dispatch("template/setDrawer", false)
+        store.dispatch("template/setDrawerRight", false)
+      }
+    }
   }
 </script>

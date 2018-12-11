@@ -166,9 +166,6 @@
         this.setMiniVariant(val)
       }
     },
-    mounted() {
-      console.log(this.$vuetify.breakpoint.smAndDown)
-    },
     methods: {
       ...mapActions({
         setDrawer: 'template/setDrawer',
