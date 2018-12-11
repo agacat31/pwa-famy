@@ -1,7 +1,5 @@
 <template>
   <div>
-    <sidebarTemplate></sidebartemplate>
-    <sidebarRightTemplate></sidebarRightTemplate>
     <navbarTemplate></navbartemplate>
     <v-content>
 	    <v-container fluid>
@@ -15,19 +13,12 @@
 <script>
   import store from '@/store'
   import Navbar from './parts/navigation.vue'
-  import Sidebar from './parts/sidebar.vue'
-  import SidebarRight from './parts/sidebarRight.vue'
   export default {
     components: {
-      'navbarTemplate': Navbar,
-      'sidebarTemplate': Sidebar,
-      'sidebarRightTemplate': SidebarRight,
+      'navbarTemplate': Navbar
     },
     beforeCreate () {
-      if (this.$vuetify.breakpoint.smAndDown) {
-        store.dispatch("template/setDrawer", false)
-        store.dispatch("template/setDrawerRight", false)
-      }
+      console.log(this.$vuetify.breakpoint.smAndDown)
     }
   }
 </script>
