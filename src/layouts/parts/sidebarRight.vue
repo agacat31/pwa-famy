@@ -5,6 +5,7 @@
       right
       :clipped="clipped"
       app
+      mobile-break-point="767"
     >
       <v-list dense>
         <template v-for="item in items">

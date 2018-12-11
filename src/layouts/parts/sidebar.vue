@@ -5,6 +5,7 @@
     :mini-variant="miniVariant"
     :clipped="clipped"
     :value="drawer"
+    mobile-break-point="767"
   > <!-- :clipped="$vuetify.breakpoint.mdAndUp" -->
     <v-list dense>
       <template v-for="item in items">
