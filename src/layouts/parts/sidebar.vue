@@ -2,7 +2,7 @@
   <v-navigation-drawer
     fixed
     app
-    :mini-variant.sync="miniVariant"
+    :mini-variant="miniVariant"
     :clipped="clipped"
     :value="drawer"
   > <!-- :clipped="$vuetify.breakpoint.mdAndUp" -->
