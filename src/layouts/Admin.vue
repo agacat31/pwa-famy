@@ -13,12 +13,21 @@
 <script>
   import store from '@/store'
   import Navbar from './parts/navigation.vue'
+  import { mapActions } from 'vuex'
   export default {
     components: {
       'navbarTemplate': Navbar
     },
     beforeCreate () {
-      console.log(this.$vuetify.breakpoint.smAndDown)
+      // console.log(this.$vuetify.breakpoint.smAndDown)
+    },
+    created () {
+      this.setMobile(this.$vuetify.breakpoint.smAndDown)
+    },
+    methods: {
+      ...mapActions({
+        setMobile: 'template/setMobile'
+      })
     }
   }
 </script>

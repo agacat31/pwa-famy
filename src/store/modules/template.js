@@ -3,7 +3,8 @@ const state = {
   drawerRight: false,
   clipped: true,
   miniVariant: false,
-  floatDrawer: false
+  floatDrawer: false,
+  mobile: false
 }
 
 const getters = {
@@ -21,6 +22,9 @@ const getters = {
   },
   floatDrawer (state) {
     return state.floatDrawer
+  },
+  mobile (state) {
+    return state.mobile
   }
 }
 
@@ -39,6 +43,9 @@ const mutations = {
   },
   SET_FLOAT_DRAWER (state, floatDrawer) {
     state.floatDrawer = floatDrawer
+  },
+  SET_MOBILE (state, mobile) {
+    state.mobile = mobile
   }
 }
 
@@ -57,6 +64,9 @@ const actions = {
   },
   setFloatDrawer ({ commit }, floatDrawer) {
     commit('SET_FLOAT_DRAWER', floatDrawer)
+  },
+  setMobile ({ commit }, mobile) {
+    commit('SET_MOBILE', mobile)
   }
 }
 

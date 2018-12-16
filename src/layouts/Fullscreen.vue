@@ -10,11 +10,18 @@
   </div>
 </template>
 <script>
-  import store from '@/store'
-  import { mapGetters } from 'vuex'
+  import { mapActions } from 'vuex'
   export default {
-    computed: mapGetters({
-      // auth: 'auth'
-    })
+    beforeCreate () {
+      // console.log(this.$vuetify.breakpoint.smAndDown)
+    },
+    created () {
+      this.setMobile(this.$vuetify.breakpoint.smAndDown)
+    },
+    methods: {
+      ...mapActions({
+        setMobile: 'template/setMobile'
+      })
+    }
   }
 </script>
