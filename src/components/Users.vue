@@ -10,6 +10,7 @@
         {{ item.text }}
       </v-breadcrumbs-item>
     </v-breadcrumbs>
+
     <v-dialog v-model="dialog" max-width="500px">
       <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
       <v-card>
@@ -17,35 +18,36 @@
           <span class="headline">{{ formTitle }}</span>
         </v-card-title>
         <v-card-text>
-          <v-container grid-list-md>
+          <v-container grid-list-md class="pt-0 pb-0">
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-layout row wrap>
                 <v-flex xs12 sm12 md6>
-                  <v-text-field
-                    v-model="editedItem.name"
-                    :rules="rules.nameRules"
-                    :counter="10"
-                    label="Dessert name"
-                    required
+                  <v-text-field v-model="editedItem.firstname" label="Firstname"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm12 md6>
-                  <v-text-field
-                    v-model="editedItem.calories"
-                    :rules="rules.caloriesRules"
-                    :counter="10"
-                    label="Calories"
-                    required
+                  <v-text-field v-model="editedItem.lastname" label="Lastname"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                  <v-text-field 
+                    v-model="editedItem.username" 
+                    :rules="rules.usernameRules"
+                    label="Username"
+                    required
+                    ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+                  <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                  <v-text-field v-model="editedItem.phone" label="Phone"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm12 md6>
+                  <v-text-field v-model="editedItem.city" label="City"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm12 md6>
+                  <v-text-field v-model="editedItem.address" label="Address"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-form>
@@ -65,6 +67,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <v-card-title class="pl-0 pr-0">
       <v-text-field
         v-model="search"
@@ -77,6 +80,7 @@
       <v-btn color="error" dark class="mb-2">Pdf</v-btn>
       <v-btn color="success" dark class="mb-2">Xls</v-btn>
     </v-card-title>
+
     <v-data-table
       :headers="headers"
       :items="tableItems"
@@ -108,10 +112,11 @@
           ></v-checkbox>
         </td>
         <td>{{ props.item.firstname }} {{ props.item.lastname }}</td>
+        <td class="text-xs-right">{{ props.item.username }}</td>
         <td class="text-xs-right">{{ props.item.email }}</td>
         <td class="text-xs-right">{{ props.item.phone }}</td>
         <td class="text-xs-right">{{ props.item.city }}</td>
-        <td class="text-xs-right">{{ props.item.address.city }}</td>
+        <td class="text-xs-right">{{ props.item.address }}</td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
@@ -145,6 +150,8 @@
             disabled: true
           }
         ],
+        // =================
+
         // Datatables
         search: '',
         dialog: false,
@@ -155,42 +162,49 @@
         pagination: {},
         rowsPerPage: [5, 10, 25, 50, 100],
         headers: [
-          { text: 'Name', align: 'left', value: 'firstname' },
-          { text: 'Email', value: 'email' },
-          { text: 'Phone', value: 'phone' },
-          { text: 'City', value: 'city' },
-          { text: 'Address', value: 'address.city', sortable: false },
-          { text: 'Actions', value: 'name', sortable: false }
+          { text: 'Name', align: 'left', value: 0 },
+          { text: 'Username', value: 1 },
+          { text: 'Email', value: 2 },
+          { text: 'Phone', value: 3 },
+          { text: 'City', value: 4 },
+          { text: 'Address', value: 5, sortable: false },
+          { text: 'Actions', value: 6, sortable: false }
         ],
-        // Datatables
+        // =================
 
         editedIndex: -1,
         editedItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0
+          firstname: '',
+          lastname: '',
+          username: '',
+          email: '',
+          phone: '',
+          city: '',
+          address: ''
         },
         defaultItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0
+          firstname: '',
+          lastname: '',
+          username: '',
+          email: '',
+          phone: '',
+          city: '',
+          address: ''
         },
+        
         // Form Rules
         valid: false,
         rules: {
-          nameRules: [
-            v => !!v || 'Name is required',
-            v => (v.length >= 4) || 'Name must have at least 4 letters.'
+          usernameRules: [
+            v => !!v || 'Username is required',
+            v => (v.length >= 4) || 'Username must have at least 4 letters.'
           ],
-          caloriesRules: [
-            v => !!v || 'Calories is required',
-            v => (v > 10 && v < 50) || 'Must be between 10 and 50'
+          emailRules: [
+            v => !!v || 'Email is required',
+            v => (v.length >= 4) || 'Must be between 10 and 50'
           ]
         }
+        // =================
       }
     },
     watch: {
@@ -214,37 +228,62 @@
       }
     },
     mounted () {
-      // this.getDataFromApi()
-      //   .then(data => {
-      //     this.tableItems = data.items
-      //     this.totalItems = data.total
-      //   })
+      
     },
     methods: {
       getDataFromApi () {
         this.loading = true
         return new Promise((resolve, reject) => {
-          const { sortBy, descending, page, rowsPerPage } = this.pagination
-          console.log(this.pagination)
-          var paginate = {
-            page: this.pagination.page,
-            limit: this.pagination.rowsPerPage,
-            sort: this.pagination.sortBy,
-            order: this.pagination.descending ? 'desc' : 'asc',
-            filter: this.search
-          }
+          const { 
+            sortBy: sort, 
+            descending, 
+            page, 
+            rowsPerPage: length } = this.pagination,
+            start = (page - 1) * length,
+            order = descending ? 'desc' : 'asc',
+            filter = this.search;
 
-          let items
-          const total = 200
-          getUsers(paginate).then((response) => {
-            items = response.data
-          })
+          const paginate = {
+            "datatable": {
+                "columns": [{
+                  "data": "name",
+                  "name": "",
+                  "searchable": true,
+                  "orderable": true,
+                  "search": {
+                    "value": "",
+                    "regex": false
+                  }
+                }],
+                "order": [{
+                  "column": sort,
+                  "dir": order
+                }],
+                "start": start,
+                "length": length,
+                "search": {
+                  "value": filter,
+                  "regex": false
+                }
+              }
+            }
 
+          let items = this.tableItems,
+              total = 0
+          // getUsers(paginate).then((response) => {
+          //   this.loading = false
+          //   resolve({
+          //     items: response.data,
+          //     total: response.data.length
+          //   })
+          // })
+
+          // Dummy
           setTimeout(() => {
             this.loading = false
             resolve({
               items,
-              total
+              total: 10
             })
           }, 1000)
         })
@@ -266,7 +305,6 @@
         this.$nextTick(() => {
             this.editedItem = Object.assign({}, this.defaultItem)
             this.$refs.form.resetValidation()
-            // this.$refs.form.reset()
             this.editedIndex = -1
         })
       },
@@ -280,6 +318,11 @@
           } else {
             this.tableItems.push(data)
           }
+          this.getDataFromApi().then(data => {
+            this.tableItems = data.items
+            this.totalItems = data.total
+            console.log(this.tableItems)
+          })
           this.close()
         }
       }
