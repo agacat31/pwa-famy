@@ -1,14 +1,7 @@
 <template>
   <div>
-    <v-breadcrumbs>
+    <v-breadcrumbs :items="breadcrumbs" divider=">">
       <v-icon slot="divider">chevron_right</v-icon>
-      <v-breadcrumbs-item
-        v-for="item in breadcrumbs"
-        :key="item.text"
-        :disabled="item.disabled"
-      >
-        {{ item.text }}
-      </v-breadcrumbs-item>
     </v-breadcrumbs>
 
     <v-dialog v-model="dialog" max-width="500px">
@@ -139,15 +132,18 @@
         breadcrumbs: [
           {
             text: 'Dashboard',
-            disabled: false
+            disabled: false,
+            href: 'breadcrumbs_dashboard'
           },
           {
             text: 'Link 1',
-            disabled: false
+            disabled: false,
+            href: 'breadcrumbs_link_1'
           },
           {
             text: 'Link 2',
-            disabled: true
+            disabled: true,
+            href: 'breadcrumbs_link_2'
           }
         ],
         // =================
