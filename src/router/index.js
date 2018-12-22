@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const HelloWorld = () => import('@/components/HelloWorld')
+const Home = () => import('@/components/Home')
 const Login = () => import('@/components/login')
 const Users = () => import('@/components/Users')
 
@@ -13,7 +13,7 @@ export default new Router({
       path: '/',
       name: 'home',
       meta: { layout: 'admin', requiresAuth: true },
-      component: HelloWorld,
+      component: Home,
     },
     {
       path: '/login',

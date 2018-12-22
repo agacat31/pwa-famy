@@ -19,7 +19,7 @@
       'navbarTemplate': Navbar
     },
     beforeCreate () {
-      // console.log(this.$vuetify.breakpoint.smAndDown)
+      console.log(this.$vuetify)
     },
     created () {
       this.setMobile(this.$vuetify.breakpoint.smAndDown)

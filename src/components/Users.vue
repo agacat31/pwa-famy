@@ -4,62 +4,9 @@
       <v-icon slot="divider">chevron_right</v-icon>
     </v-breadcrumbs>
 
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
-      <v-card>
-        <v-card-title>
-          <span class="headline">{{ formTitle }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container grid-list-md class="pt-0 pb-0">
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-layout row wrap>
-                <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.firstname" label="Firstname"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.lastname" label="Lastname"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md6>
-                  <v-text-field 
-                    v-model="editedItem.username" 
-                    :rules="rules.usernameRules"
-                    label="Username"
-                    required
-                    ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.phone" label="Phone"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.city" label="City"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12 md6>
-                  <v-text-field v-model="editedItem.address" label="Address"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-form>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-          <v-btn
-            color="blue darken-1"
-            flat
-            :disabled="!valid"
-            @click.native="save"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <v-btn color="primary" dark class="mb-2" @click="dialog = true">New User</v-btn>
+
+    <!-- ============= Toolbar ============= -->
 
     <v-card-title class="pl-0 pr-0">
       <v-text-field
@@ -70,9 +17,11 @@
         hide-details
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn color="error" dark class="mb-2">Pdf</v-btn>
-      <v-btn color="success" dark class="mb-2">Xls</v-btn>
+      <v-btn color="primary" dark class="mb-2">Pdf</v-btn>
+      <v-btn color="primary" dark class="mb-2">Xls</v-btn>
     </v-card-title>
+
+    <!-- ============= Datatables ============= -->
 
     <v-data-table
       :headers="headers"
@@ -105,11 +54,11 @@
           ></v-checkbox>
         </td>
         <td>{{ props.item.firstname }} {{ props.item.lastname }}</td>
-        <td class="text-xs-right">{{ props.item.username }}</td>
-        <td class="text-xs-right">{{ props.item.email }}</td>
+        <td>{{ props.item.username }}</td>
+        <td>{{ props.item.email }}</td>
         <td class="text-xs-right">{{ props.item.phone }}</td>
-        <td class="text-xs-right">{{ props.item.city }}</td>
-        <td class="text-xs-right">{{ props.item.address }}</td>
+        <td>{{ props.item.city }}</td>
+        <td>{{ props.item.address.streetAddress }}</td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
@@ -120,6 +69,63 @@
         </td>
       </template>
     </v-data-table>
+
+    <!-- ============= Modal ============= -->
+
+    <v-dialog persistent v-model="dialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{ formTitle }}</span>
+        </v-card-title>
+        <v-container grid-list-md class="pt-0 pb-0">
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-layout row wrap>
+              <v-flex xs12 sm12 md6>
+                <v-text-field v-model="editedItem.firstname" label="Firstname"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12 md6>
+                <v-text-field v-model="editedItem.lastname" label="Lastname"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12 md6>
+                <v-text-field 
+                  v-model="editedItem.username" 
+                  :rules="rules.username"
+                  label="Username"
+                  required
+                  ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12 md6>
+                <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12 md6>
+                <v-text-field v-model="editedItem.phone" label="Phone"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12 md6>
+                <v-text-field v-model="editedItem.city" label="City"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12 md6>
+                <v-text-field v-model="editedItem.address.streetAddress" label="Address"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-form>
+        </v-container>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
+          <v-btn
+            color="blue darken-1"
+            flat
+            :disabled="!valid"
+            @click.native="save"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </div>
 </template>
 
@@ -163,7 +169,7 @@
           { text: 'Email', value: 2 },
           { text: 'Phone', value: 3 },
           { text: 'City', value: 4 },
-          { text: 'Address', value: 5, sortable: false },
+          { text: 'Address', value: 5, width: '10%' },
           { text: 'Actions', value: 6, sortable: false }
         ],
         // =================
@@ -191,11 +197,11 @@
         // Form Rules
         valid: false,
         rules: {
-          usernameRules: [
+          username: [
             v => !!v || 'Username is required',
             v => (v.length >= 4) || 'Username must have at least 4 letters.'
           ],
-          emailRules: [
+          email: [
             v => !!v || 'Email is required',
             v => (v.length >= 4) || 'Must be between 10 and 50'
           ]
@@ -220,7 +226,7 @@
     },
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'New User' : 'Edit User'
       }
     },
     mounted () {
@@ -240,50 +246,59 @@
             filter = this.search;
 
           const paginate = {
-            "datatable": {
-                "columns": [{
-                  "data": "name",
-                  "name": "",
-                  "searchable": true,
-                  "orderable": true,
-                  "search": {
-                    "value": "",
-                    "regex": false
-                  }
-                }],
-                "order": [{
-                  "column": sort,
-                  "dir": order
-                }],
-                "start": start,
-                "length": length,
-                "search": {
-                  "value": filter,
-                  "regex": false
-                }
-              }
-            }
+            sort: sort,
+            order: order,
+            page: page,
+            limit: length,
+            filter: filter
+          }
 
-          let items = this.tableItems,
-              total = 0
-          // getUsers(paginate).then((response) => {
-          //   this.loading = false
-          //   resolve({
-          //     items: response.data,
-          //     total: response.data.length
-          //   })
-          // })
+          // const paginate = {
+          //   "datatable": {
+          //       "columns": [{
+          //         "data": "name",
+          //         "name": "",
+          //         "searchable": true,
+          //         "orderable": true,
+          //         "search": {
+          //           "value": "",
+          //           "regex": false
+          //         }
+          //       }],
+          //       "order": [{
+          //         "column": sort,
+          //         "dir": order
+          //       }],
+          //       "start": start,
+          //       "length": length,
+          //       "search": {
+          //         "value": filter,
+          //         "regex": false
+          //       }
+          //     }
+          //   }
 
-          // Dummy
-          setTimeout(() => {
+          let items = null,
+              total = 200
+          getUsers(paginate).then((response) => {
             this.loading = false
             resolve({
-              items,
-              total: 10
+              items: response.data,
+              total: total
             })
-          }, 1000)
+          })
+
+          // Dummy
+          // setTimeout(() => {
+          //   this.loading = false
+          //   resolve({
+          //     items,
+          //     total: 10
+          //   })
+          // }, 1000)
         })
       },
+      
       editItem (item) {
         this.editedIndex = this.tableItems.indexOf(item)
         this.editedItem = Object.assign({}, item)
